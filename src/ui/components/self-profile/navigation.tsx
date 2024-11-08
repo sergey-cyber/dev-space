@@ -1,6 +1,7 @@
 "use client";
 
-import { myPostsRoute, personalInfoRoute } from "@/routes/self/self-route";
+import { myPostsRoute } from "@/routes/self/post";
+import { personalInfoRoute } from "@/routes/self/self-route";
 import { Button } from "@/ui/shadcn/ui/button";
 import { NotebookText, User } from "lucide-react";
 import Link from "next/link";

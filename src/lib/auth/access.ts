@@ -1,3 +1,4 @@
+import { Exeption } from "@/exeption/exeption";
 import { authService } from "../../service/auth/authService";
 
 /**
@@ -19,10 +20,7 @@ export function Access(requiredRoles: string[]) {
     descriptor.value = async function (...args: any[]) {
       const principal = await authService.getPrincipalStricktly();
       if (!requiredRoles.includes(principal.role || "")) {
-        throw {
-          message: `Недостаточно прав для выполнения операции`,
-          status: 403,
-        };
+        throw new Exeption(`Недостаточно прав для выполнения операции`, 403);
       }
 
       return await originalMethod.apply(this, args);

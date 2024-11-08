@@ -24,6 +24,11 @@ export class PostService {
   public async createPost(post: Pick<Post, "title" | "authorId" | "content">) {
     return this.client.post.create({ data: post });
   }
+
+  @Access([Roles.ADMIN, Roles.AUTHOR])
+  public async updatePost(id: string, post: Partial<Post>) {
+    return this.client.post.update({ where: { id }, data: post });
+  }
 }
 
 export const postService = new PostService(_prismaClient);

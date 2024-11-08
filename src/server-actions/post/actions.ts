@@ -1,9 +1,11 @@
 "use server";
 
-import { CreatePostPayload } from "@/entity/role/post/post";
+import { CreatePostPayload } from "@/entity/post/post";
+import { ServerActionExeption } from "@/exeption/server-action-exeption";
+import { myPostsRoute } from "@/routes/self/post";
 import { authService } from "@/service/auth/authService";
 import { postService } from "@/service/post/postService";
-import { myPostsRoute } from "@/routes/self/self-route";
+import { Post } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -14,10 +16,34 @@ export async function createPost(payload: CreatePostPayload) {
       ...payload,
       authorId: principal.id,
     });
-  } catch (err) {
-    return { error: { message: "Ошибка при создании поста." } };
+  } catch (err: any) {
+    return new ServerActionExeption(
+      "Ошибка при создании поста.",
+      err?.status || undefined,
+    ).asPlainObject();
   }
 
+  const redirectPath = myPostsRoute.getPath();
+  revalidatePath(redirectPath);
+  redirect(redirectPath);
+}
+
+export async function updatePost(postId: string, payload: Partial<Post>) {
+  try {
+    const principal = await authService.getPrincipalStricktly();
+    const post = await postService.get(postId, { include: { author: true } });
+    if (principal.id !== post?.author.id) {
+      return new ServerActionExeption(
+        "Нет прав на редактирование данного поста.",
+      ).asPlainObject();
+    }
+    await postService.updatePost(postId, payload);
+  } catch (err: any) {
+    return new ServerActionExeption(
+      "Ошибка при обновлении поста.",
+      err?.status || undefined,
+    ).asPlainObject();
+  }
   const redirectPath = myPostsRoute.getPath();
   revalidatePath(redirectPath);
   redirect(redirectPath);

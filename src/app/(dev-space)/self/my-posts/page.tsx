@@ -1,7 +1,8 @@
-import { createPostRoute } from "@/routes/self/self-route";
+import { createPostRoute, myPostRoute } from "@/routes/self/post";
 import { authService } from "@/service/auth/authService";
 import { postService } from "@/service/post/postService";
 import { PostListItem } from "@/ui/components/post";
+import { ListItemMenu } from "@/ui/components/self-profile/post";
 import { EmptyList } from "@/ui/components/shared/empty-list";
 import { buttonVariants } from "@/ui/shadcn/ui/button";
 import { Plus } from "lucide-react";
@@ -27,7 +28,12 @@ export default async function MyPostsPage() {
       </div>
       {posts.length ? (
         posts.map((post) => (
-          <PostListItem key={post.id} post={post} toPost="/" />
+          <PostListItem
+            key={post.id}
+            post={post}
+            toPost={myPostRoute.getPath({ id: post.id })}
+            actionsMenu={<ListItemMenu post={post} />}
+          />
         ))
       ) : (
         <EmptyList />

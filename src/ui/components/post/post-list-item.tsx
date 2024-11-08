@@ -7,13 +7,15 @@ import {
 } from "@/ui/shadcn/ui/card";
 import { Prisma } from "@prisma/client";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 interface Props {
   post: Prisma.PostGetPayload<{ include: { author: true } }>;
   toPost: string;
+  actionsMenu?: ReactNode;
 }
 
-export function PostListItem({ post, toPost }: Props) {
+export function PostListItem({ post, toPost, actionsMenu }: Props) {
   const formatter = new Intl.DateTimeFormat("ru", {
     dateStyle: "long",
     timeStyle: "short",
@@ -27,7 +29,10 @@ export function PostListItem({ post, toPost }: Props) {
             {/* <UserAvatar user={post.author} className="size-5" /> */}
             <span className="text-primary font-medium">{post.author.name}</span>
           </span>
-          <span>{formatter.format(new Date(post.createdAt))}</span>
+          <span className="flex space-x-2">
+            <span>{formatter.format(new Date(post.createdAt))}</span>
+            {actionsMenu}
+          </span>
         </CardDescription>
         <CardTitle className="py-2">
           <Link href={toPost}>{post.title}</Link>

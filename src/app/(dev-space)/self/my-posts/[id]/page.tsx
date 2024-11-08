@@ -1,12 +1,17 @@
 import { postService } from "@/service/post/postService";
 import { Post } from "@/ui/components/post";
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function MyPostPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const post = await postService.get(params.id, {
     include: { author: true },
   });
 
   if (!post) {
+    // TODO: 404
     return null;
   }
 

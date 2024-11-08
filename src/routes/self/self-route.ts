@@ -7,11 +7,3 @@ export const profileRoute: RouteDef = {
 export const personalInfoRoute: RouteDef = {
   getPath: () => profileRoute.getPath() + "/personal-info",
 };
-
-export const myPostsRoute: RouteDef = {
-  getPath: () => profileRoute.getPath() + "/my-posts",
-};
-
-export const createPostRoute: RouteDef = {
-  getPath: () => myPostsRoute.getPath() + "/create",
-};
