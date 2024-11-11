@@ -10,14 +10,21 @@ export class PostService {
     this.client = client;
   }
 
-  public get<T extends Prisma.PostInclude>(id: string, args: { include: T }) {
+  public async get<T extends Prisma.PostInclude>(
+    id: string,
+    args: { include: T },
+  ) {
     return this.client.post.findUnique({ where: { id }, ...args });
   }
 
-  public search<T extends Prisma.PostInclude>(
+  public async search<T extends Prisma.PostInclude>(
     params?: Omit<Prisma.PostFindManyArgs, "include"> & { include: T },
   ) {
     return this.client.post.findMany(params);
+  }
+
+  public async getCount(params?: Prisma.PostCountArgs) {
+    return this.client.post.count(params);
   }
 
   @Access([Roles.ADMIN, Roles.AUTHOR])

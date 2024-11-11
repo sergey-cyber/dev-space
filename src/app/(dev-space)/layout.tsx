@@ -12,7 +12,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
+    <main className="pb-6">
       <AppHeader />
       <section className="container pt-6">{children}</section>
     </main>

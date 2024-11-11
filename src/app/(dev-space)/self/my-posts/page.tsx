@@ -1,19 +1,30 @@
 import { createPostRoute, myPostRoute } from "@/routes/self/post";
 import { authService } from "@/service/auth/authService";
 import { postService } from "@/service/post/postService";
-import { PostListItem } from "@/ui/components/post";
+import { PostListItem, PostsPagination } from "@/ui/components/post";
 import { ListItemMenu } from "@/ui/components/self-profile/post";
 import { EmptyList } from "@/ui/components/shared/empty-list";
 import { buttonVariants } from "@/ui/shadcn/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-export default async function MyPostsPage() {
+interface Props {
+  searchParams: { page?: string };
+}
+
+const POSTS_PER_PAGE = 10;
+
+export default async function MyPostsPage({ searchParams }: Props) {
+  const currentPage = Number(searchParams?.page) || 1;
+  const postsCount = await postService.getCount();
   const principal = await authService.getPrincipalStricktly();
   const posts = await postService.search({
     where: { authorId: principal.id },
     include: { author: true },
+    skip: (currentPage - 1) * POSTS_PER_PAGE,
+    take: POSTS_PER_PAGE,
   });
+  const totalPages = Math.ceil(postsCount / POSTS_PER_PAGE);
 
   return (
     <section className="space-y-6">
@@ -38,6 +49,7 @@ export default async function MyPostsPage() {
       ) : (
         <EmptyList />
       )}
+      <PostsPagination totalPages={totalPages} />
     </section>
   );
 }
