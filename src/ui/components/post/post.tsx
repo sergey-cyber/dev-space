@@ -8,7 +8,7 @@ import {
 } from "@/ui/shadcn/ui/card";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 import { UserAvatar } from "../shared/user-avatar";
 import { UICodeBlock } from "./code-block";
 import { Prisma } from "@prisma/client";
@@ -17,9 +17,10 @@ import { Separator } from "@/ui/shadcn/ui/separator";
 
 interface Props {
   post: Prisma.PostGetPayload<{ include: { author: true } }>;
+  views?: ReactNode;
 }
 
-export function Post({ post }: Props) {
+export function Post({ post, views }: Props) {
   const formatter = new Intl.DateTimeFormat("ru", {
     dateStyle: "long",
     timeStyle: "short",
@@ -62,9 +63,7 @@ export function Post({ post }: Props) {
           {post.content}
         </Markdown>
       </CardContent>
-      {/* <CardFooter className="flex gap-x-2">
-        <PostReactions post={post} />
-      </CardFooter> */}
+      <CardFooter className="flex justify-end gap-x-2">{views}</CardFooter>
 
       <Separator className="my-4" />
       <Suspense fallback={<CommentsLoading />}>

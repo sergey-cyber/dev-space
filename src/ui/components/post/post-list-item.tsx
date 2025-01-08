@@ -2,12 +2,14 @@ import { Badge } from "@/ui/shadcn/ui/badge";
 import {
   Card,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/ui/shadcn/ui/card";
 import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { Views } from "./views";
 
 interface Props {
   post: Prisma.PostGetPayload<{ include: { author: true } }>;
@@ -47,6 +49,9 @@ export function PostListItem({ post, toPost, actionsMenu }: Props) {
           </div>
         ) : null}
       </CardHeader>
+      <CardFooter className="flex justify-end">
+        <Views views={post.views} />
+      </CardFooter>
     </Card>
   );
 }

@@ -1,5 +1,6 @@
 import { postService } from "@/service/post/postService";
 import { Post } from "@/ui/components/post";
+import { Views } from "@/ui/components/post/views";
 
 export default async function MyPostPage({
   params,
@@ -15,5 +16,5 @@ export default async function MyPostPage({
     return null;
   }
 
-  return <Post post={post} />;
+  return <Post post={post} views={<Views views={post.views} />} />;
 }

@@ -36,6 +36,13 @@ export class PostService {
   public async updatePost(id: string, post: Partial<Post>) {
     return this.client.post.update({ where: { id }, data: post });
   }
+
+  public async incrmentViews(id: string) {
+    return this.client.post.update({
+      where: { id },
+      data: { views: { increment: 1 } },
+    });
+  }
 }
 
 export const postService = new PostService(_prismaClient);

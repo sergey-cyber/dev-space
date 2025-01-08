@@ -48,3 +48,12 @@ export async function updatePost(postId: string, payload: Partial<Post>) {
   revalidatePath(redirectPath);
   redirect(redirectPath);
 }
+
+export async function incrementViews(id: string) {
+  try {
+    const post = await postService.incrmentViews(id);
+    return post.views;
+  } catch (e) {
+    console.error(e);
+  }
+}
