@@ -1,4 +1,5 @@
 import { postsRoute } from "@/routes/post/posts-route";
+import { AppLogo } from "@/ui/components/shared/app-logo";
 import { buttonVariants } from "@/ui/shadcn/ui/button";
 import { Card, CardContent, CardHeader } from "@/ui/shadcn/ui/card";
 import { Orbit, MoveRight } from "lucide-react";
@@ -9,13 +10,10 @@ export default function HomePage() {
     <section className="container">
       <Card>
         <CardHeader className="gap-y-6">
-          <div className="flex gap-x-2 justify-center text-7xl font-bold">
-            <span>DEV</span>
-            <span>
-              <Orbit className="size-16" />
-            </span>
-            <span>SPACE</span>
-          </div>
+          <AppLogo
+            className="justify-center text-7xl font-bold"
+            iconClassName="size-16"
+          />
           <p className="text-gray-500 text-xl text-center">
             Пространство для разработчиков
           </p>

@@ -1,3 +1,4 @@
+import { AppFooter } from "@/ui/components/app-footer";
 import { AppHeader } from "@/ui/components/app-header";
 import { Metadata } from "next";
 
@@ -12,9 +13,10 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="pb-6">
+    <main className="min-h-screen flex flex-col">
       <AppHeader />
-      <section className="container pt-6">{children}</section>
+      <section className="container flex-1 py-6">{children}</section>
+      <AppFooter />
     </main>
   );
 }
