@@ -28,7 +28,7 @@ export async function createPost(payload: CreatePostPayload) {
   redirect(redirectPath);
 }
 
-export async function updatePost(postId: string, payload: Partial<Post>) {
+export async function updateSelfPost(postId: string, payload: Partial<Post>) {
   try {
     const principal = await authService.getPrincipalStricktly();
     const post = await postService.get(postId, { include: { author: true } });
@@ -47,6 +47,32 @@ export async function updatePost(postId: string, payload: Partial<Post>) {
   const redirectPath = myPostsRoute.getPath();
   revalidatePath(redirectPath);
   redirect(redirectPath);
+}
+
+export async function deleteSelfPost(
+  postId: string,
+  options?: { redirectToList?: boolean },
+) {
+  try {
+    const principal = await authService.getPrincipalStricktly();
+    const post = await postService.get(postId, { include: { author: true } });
+    if (principal.id !== post?.author.id) {
+      return new ServerActionExeption(
+        "Нет прав на удаление данного поста.",
+      ).asPlainObject();
+    }
+    await postService.deletePost(postId);
+  } catch (err: any) {
+    return new ServerActionExeption(
+      "Ошибка при удалении поста.",
+      err?.status || undefined,
+    ).asPlainObject();
+  }
+  const redirectPath = myPostsRoute.getPath();
+  revalidatePath(redirectPath);
+  if (options?.redirectToList) {
+    redirect(redirectPath);
+  }
 }
 
 export async function incrementViews(id: string) {

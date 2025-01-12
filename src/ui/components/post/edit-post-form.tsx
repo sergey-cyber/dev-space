@@ -4,7 +4,7 @@ import { Post } from "@prisma/client";
 import { PostForm } from "./post-form";
 import { useState } from "react";
 import { useToast } from "@/ui/lib/hooks/use-toast";
-import { updatePost } from "@/server-actions/post/actions";
+import { updateSelfPost } from "@/server-actions/post/actions";
 import { formSchema } from "@/entity/post/schema/post-form-schema";
 import { z } from "zod";
 
@@ -19,7 +19,7 @@ export function EditPostForm({ post }: IProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      const result = await updatePost(post.id, values);
+      const result = await updateSelfPost(post.id, values);
       if (result?.error) {
         toast({
           variant: "destructive",

@@ -43,6 +43,11 @@ export class PostService {
       data: { views: { increment: 1 } },
     });
   }
+
+  @Access([Roles.ADMIN, Roles.AUTHOR])
+  public async deletePost(id: string) {
+    return this.client.post.delete({ where: { id } });
+  }
 }
 
 export const postService = new PostService(_prismaClient);
