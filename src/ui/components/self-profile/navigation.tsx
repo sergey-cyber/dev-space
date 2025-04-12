@@ -1,9 +1,10 @@
 "use client";
 
+import { myAccountRoute } from "@/routes/self/account";
 import { myPostsRoute } from "@/routes/self/post";
 import { personalInfoRoute } from "@/routes/self/self-route";
 import { Button } from "@/ui/shadcn/ui/button";
-import { NotebookText, User } from "lucide-react";
+import { NotebookText, User, UserRoundCog } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -19,6 +20,11 @@ export function SelfProfileNavigation() {
       path: myPostsRoute.getPath(),
       label: "Мои публикации",
       icon: <NotebookText />,
+    },
+    {
+      path: myAccountRoute.getPath(),
+      label: "Аккаунт",
+      icon: <UserRoundCog />,
     },
   ];
 

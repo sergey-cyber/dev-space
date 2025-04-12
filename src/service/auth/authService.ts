@@ -20,4 +20,5 @@ export class AuthService {
   }
 }
 
+export type AuthServiceType = AuthService;
 export const authService = new AuthService();

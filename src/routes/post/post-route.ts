@@ -1,4 +1,3 @@
-import { RouteDef } from "../route-def";
 import { postsRoute } from "./posts-route";
 
 type Params = {
