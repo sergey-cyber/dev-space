@@ -48,6 +48,8 @@ jobs:
 
       - name: Migrate database
         run: npm run migrate:ci
+        env:
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
