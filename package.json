@@ -9,9 +9,11 @@
     "lint": "next lint",
     "migrate:dev": "npx prisma migrate dev",
     "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev",
+    "migrate:ci": "npx prisma migrate dev",
     "studio:dev": "npx prisma studio",
     "studio:test": "dotenv -e .env.test -- npx prisma studio",
     "start:test": "cross-env NODE_ENV=test next dev -p 3001",
+    "start:ci": "next dev -p 3001",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:comp": "cypress run --component"

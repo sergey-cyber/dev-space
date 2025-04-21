@@ -46,10 +46,13 @@ jobs:
           sleep 10
           echo "PostgreSQL started"
 
+      - name: Migrate database
+        run: npm run migrate:ci
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm run start:test
+          start: npm run start:ci
           wait-on: "http://localhost:3001"
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
