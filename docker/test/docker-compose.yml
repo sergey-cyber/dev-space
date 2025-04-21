@@ -1,14 +1,13 @@
 services:
-  postgres:
+  test-db:
     image: postgres:latest
-    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: dev-space-db
+      POSTGRES_DB: test-dev-space-db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - test-db-data:/var/lib/postgresql/data
 volumes:
-  pgdata:
+  test-db-data:
