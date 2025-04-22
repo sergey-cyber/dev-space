@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import dbClientConfig from "./cypress/support/db-client-config";
+import dbClientConfig from "./cypress/support/db/db-client-config";
 import { Client } from "pg";
 
 export default defineConfig({

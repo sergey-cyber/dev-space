@@ -1,0 +1,8 @@
+{
+  "id": "cuid1",
+  "title": "Example Post",
+  "content": "This is an example post content.",
+  "authorId": "user1",
+  "createdAt": "2023-10-01T12:00:00Z",
+  "updatedAt": "2023-10-01T12:00:00Z"
+}
