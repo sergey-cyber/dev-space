@@ -24,19 +24,23 @@ export function PostListItem({ post, toPost, actionsMenu }: Props) {
   });
 
   return (
-    <Card>
+    <Card data-test="post-list-item">
       <CardHeader>
         <CardDescription className="flex gap-x-3 justify-between  items-center flex-nowrap">
           <span className="flex gap-x-1 items-center flex-nowrap">
             {/* <UserAvatar user={post.author} className="size-5" /> */}
-            <span className="text-primary font-medium">{post.author.name}</span>
+            <span className="text-primary font-medium" data-test="author-name">
+              {post.author.name}
+            </span>
           </span>
           <span className="flex space-x-2">
-            <span>{formatter.format(new Date(post.createdAt))}</span>
+            <span data-test="created-at">
+              {formatter.format(new Date(post.createdAt))}
+            </span>
             {actionsMenu}
           </span>
         </CardDescription>
-        <CardTitle className="py-2">
+        <CardTitle className="py-2" data-test="title">
           <Link href={toPost}>{post.title}</Link>
         </CardTitle>
         {post.tags.length ? (

@@ -27,20 +27,24 @@ export function Post({ post, views }: Props) {
   });
 
   return (
-    <Card className="w-full">
+    <Card className="w-full" data-test="post">
       <CardHeader>
         <CardDescription className="flex justify-between  items-center flex-nowrap">
           <span className="flex gap-x-1 items-center flex-nowrap">
             <UserAvatar user={post.author} className="size-8" />
-            <span className="text-primary text-lg">{post.author.name}</span>
+            <span className="text-primary text-lg" data-test="author-name">
+              {post.author.name}
+            </span>
           </span>
-          <span>{formatter.format(new Date(post.createdAt))}</span>
+          <span data-test="created-at">
+            {formatter.format(new Date(post.createdAt))}
+          </span>
         </CardDescription>
-        <CardTitle className="py-2 text-4xl font-extrabold">
+        <CardTitle className="py-2 text-4xl font-extrabold" data-test="title">
           {post.title}
         </CardTitle>
       </CardHeader>
-      <CardContent className="prose dark:prose-invert ">
+      <CardContent className="prose dark:prose-invert " data-test="content">
         <Markdown
           remarkPlugins={[remarkGfm]}
           components={{
