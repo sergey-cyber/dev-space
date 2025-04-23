@@ -67,7 +67,9 @@ export function Post({ post, views }: Props) {
           {post.content}
         </Markdown>
       </CardContent>
-      <CardFooter className="flex justify-end gap-x-2">{views}</CardFooter>
+      <CardFooter className="flex justify-end gap-x-2" data-test="views">
+        {views}
+      </CardFooter>
 
       <Separator className="my-4" />
       <Suspense fallback={<CommentsLoading />}>

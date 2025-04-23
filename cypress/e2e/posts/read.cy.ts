@@ -36,6 +36,7 @@ describe("Read post", () => {
         user.name,
       );
       cy.get(postSelector + " [data-test='created-at']").should("be.visible");
+      cy.get(postSelector + " [data-test='views']").should("have.text", 2);
     });
   });
 
