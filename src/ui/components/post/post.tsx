@@ -43,7 +43,7 @@ export function Post({ post, views }: Props) {
       return match ? (
         <UICodeBlock
           language={match[1]}
-          code={String(children).replace(/\n$/, "")}
+          code={typeof children === "string" ? children.replace(/\n$/, "") : ""}
         />
       ) : (
         <code {...rest} className={className}>
