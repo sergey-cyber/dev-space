@@ -1,5 +1,5 @@
 export class Sql {
-  private tableName;
+  private readonly tableName;
 
   constructor(tableName: string) {
     this.tableName = tableName;

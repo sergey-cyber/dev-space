@@ -3,7 +3,9 @@ import { Post } from "@/ui/components/post";
 import { Views, ViewsIncrementer } from "@/ui/components/post/views";
 import { notFound } from "next/navigation";
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage({
+  params,
+}: Readonly<{ params: { id: string } }>) {
   const post = await postService.get(params.id, {
     include: { author: true },
   });

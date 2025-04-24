@@ -12,11 +12,6 @@ export async function Comments({ post }: Props) {
     include: { user: true },
   });
 
-  const formatter = new Intl.DateTimeFormat("ru", {
-    dateStyle: "long",
-    timeStyle: "short",
-  });
-
   return (
     <div className="container space-y-4 py-4">
       <h2 className="text-xl font-bold">{`Комментарии (${comments.length})`}</h2>

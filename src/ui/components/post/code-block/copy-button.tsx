@@ -15,9 +15,13 @@ export function CopyButton({
   className,
   visible = true,
 }: Props) {
-  return visible ? (
-    <div className={className} onClick={onClick}>
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <button className={className} onClick={onClick}>
       <ClipboardIcon isCopied={isCopied} className="w-5 h-5" />
-    </div>
-  ) : null;
+    </button>
+  );
 }

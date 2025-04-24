@@ -5,7 +5,7 @@ import { Roles } from "@/entity/role/roles";
 import { Access } from "../../lib/auth/access";
 
 export class PostService {
-  private client;
+  private readonly client;
   constructor(client: IServiceClient) {
     this.client = client;
   }

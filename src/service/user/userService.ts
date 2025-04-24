@@ -8,8 +8,8 @@ import {
 } from "../auth/authService";
 
 class UserService {
-  private client;
-  private authService;
+  private readonly client;
+  private readonly authService;
 
   constructor(client: IServiceClient, authService: AuthServiceType) {
     this.client = client;
