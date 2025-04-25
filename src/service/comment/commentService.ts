@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import _prismaClient from "../prisma/prisma-client";
 
 export class CommentService {
-  private client;
+  private readonly client;
   constructor(client: PrismaClient) {
     this.client = client;
   }

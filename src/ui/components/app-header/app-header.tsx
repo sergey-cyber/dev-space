@@ -25,7 +25,7 @@ export async function AppHeader() {
           ) : (
             <ProfileMenu>
               <Avatar className="cursor-pointer">
-                <AvatarImage src={user.image || undefined} alt="avatar" />
+                <AvatarImage src={user.image ?? undefined} alt="avatar" />
                 <AvatarFallback>
                   {user.name?.slice(0, 1).toUpperCase()}
                 </AvatarFallback>

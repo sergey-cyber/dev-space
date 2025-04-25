@@ -9,7 +9,7 @@ interface Props {
 export function UserAvatar({ user, className }: Props) {
   return (
     <Avatar className={className}>
-      <AvatarImage src={user?.image || undefined} alt="post-author avatar" />
+      <AvatarImage src={user?.image ?? undefined} alt="post-author avatar" />
       <AvatarFallback>
         {user?.name ? user.name?.slice(0, 1).toLocaleUpperCase() : "DS"}
       </AvatarFallback>

@@ -6,9 +6,15 @@ import {
   CardContent,
   CardFooter,
 } from "@/ui/shadcn/ui/card";
-import Markdown from "react-markdown";
+import Markdown, { ExtraProps } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ReactNode, Suspense } from "react";
+import {
+  ClassAttributes,
+  HTMLAttributes,
+  ReactNode,
+  Suspense,
+  useCallback,
+} from "react";
 import { UserAvatar } from "../shared/user-avatar";
 import { UICodeBlock } from "./code-block";
 import { Prisma } from "@prisma/client";
@@ -25,6 +31,28 @@ export function Post({ post, views }: Props) {
     dateStyle: "long",
     timeStyle: "short",
   });
+
+  const code = useCallback(
+    (
+      props: ClassAttributes<HTMLElement> &
+        HTMLAttributes<HTMLElement> &
+        ExtraProps,
+    ) => {
+      const { children, className, node, ...rest } = props;
+      const match = /language-(\w+)/.exec(className ?? "");
+      return match ? (
+        <UICodeBlock
+          language={match[1]}
+          code={typeof children === "string" ? children.replace(/\n$/, "") : ""}
+        />
+      ) : (
+        <code {...rest} className={className}>
+          {children}
+        </code>
+      );
+    },
+    [],
+  );
 
   return (
     <Card className="w-full" data-test="post">
@@ -45,25 +73,7 @@ export function Post({ post, views }: Props) {
         </CardTitle>
       </CardHeader>
       <CardContent className="prose dark:prose-invert " data-test="content">
-        <Markdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            code(props) {
-              const { children, className, node, ...rest } = props;
-              const match = /language-(\w+)/.exec(className || "");
-              return match ? (
-                <UICodeBlock
-                  language={match[1]}
-                  code={String(children).replace(/\n$/, "")}
-                />
-              ) : (
-                <code {...rest} className={className}>
-                  {children}
-                </code>
-              );
-            },
-          }}
-        >
+        <Markdown remarkPlugins={[remarkGfm]} components={{ code }}>
           {post.content}
         </Markdown>
       </CardContent>

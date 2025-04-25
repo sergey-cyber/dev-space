@@ -38,8 +38,8 @@ export function useFetch<T>(
     return () => {
       unmounted = true;
     };
-
-    return () => setTrigger(trigger + 1); // reload function
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger, ...deps]);
+
+  return () => setTrigger(trigger + 1); // reload function
 }
