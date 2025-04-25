@@ -1,6 +1,8 @@
 import { defineConfig } from "cypress";
-import dbClientConfig from "./cypress/support/db/db-client-config";
 import { Client } from "pg";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env.test" });
 
 export default defineConfig({
   e2e: {
@@ -8,7 +10,10 @@ export default defineConfig({
       // implement node event listeners here
       on("task", {
         async executeQuery({ sql }: { sql: string }) {
-          const client = new Client(dbClientConfig);
+          const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: false,
+          });
           await client.connect();
           await client.query(sql);
           await client.end();
