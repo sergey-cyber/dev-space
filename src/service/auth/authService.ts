@@ -4,8 +4,6 @@ import { User } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export class AuthService {
-  constructor() {}
-
   public async getPrincipal() {
     const session = await auth();
     return session?.user as User | undefined;
