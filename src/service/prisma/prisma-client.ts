@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { logger } from "../logger";
 
 const prismaClientSingleton = () => {
+  logger.info("Prisma client initialized.");
   return new PrismaClient();
 };
 
