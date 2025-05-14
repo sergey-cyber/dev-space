@@ -1,12 +1,12 @@
-import { createPostRoute, myPostRoute } from "@/routes/self/post";
+import { myPostRoute } from "@/routes/self/post";
 import { authService } from "@/service/auth/authService";
 import { postService } from "@/service/post/postService";
 import { PostListItem, PostsPagination } from "@/ui/components/post";
-import { ListItemMenu } from "@/ui/components/self-profile/post";
+import {
+  ListItemMenu,
+  PostsSectionHeader,
+} from "@/ui/components/self-profile/post";
 import { EmptyList } from "@/ui/components/shared/empty-list";
-import { buttonVariants } from "@/ui/shadcn/ui/button";
-import { Plus } from "lucide-react";
-import Link from "next/link";
 
 interface Props {
   searchParams: { page?: string };
@@ -28,15 +28,7 @@ export default async function MyPostsPage({ searchParams }: Props) {
 
   return (
     <section className="space-y-6">
-      <div className="flex justify-end">
-        <Link
-          href={createPostRoute.getPath()}
-          className={buttonVariants({ variant: "default" })}
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Добавить
-        </Link>
-      </div>
+      <PostsSectionHeader userRole={principal.role ?? undefined} />
       {posts.length ? (
         posts.map((post) => (
           <PostListItem
