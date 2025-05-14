@@ -51,10 +51,14 @@ jobs:
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
 
-      - name: Run Cypress tests
+      - name: Run Cypress component tests
         uses: cypress-io/github-action@v6
         with:
           component: true
+
+      - name: Run Cypress e2e tests
+        uses: cypress-io/github-action@v6
+        with:
           start: npm run start:ci
           wait-on: "http://localhost:3001"
         env:
