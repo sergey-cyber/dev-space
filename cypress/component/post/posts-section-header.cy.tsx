@@ -1,4 +1,4 @@
-import { PostsSectionHeader } from "@/ui/components/self-profile/post";
+import { PostsSectionHeader } from "@/ui/components/self-profile/post/posts-header";
 import { Roles } from "@/entity/role/roles";
 
 describe("PostsSectionHeader", () => {
